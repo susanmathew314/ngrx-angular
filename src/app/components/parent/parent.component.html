@@ -1,0 +1,33 @@
+<div *ngIf="(employees$ | async) as employees">
+  <h2>Employee List</h2>
+  <ul>
+    <li *ngFor="let employee of employees">
+      {{ employee.name }}
+      <button (click)="editEmployee(employee.id, employee)">Edit</button>
+      <button (click)="deleteEmployee(employee.id)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+<div>
+  <h2>Add Employee</h2>
+  <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm.value)">
+    <label>
+      Name:
+      <input type="text" name="name" [(ngModel)]="newEmployeeName" required>
+    </label>
+    <button type="submit" [disabled]="!employeeForm.valid">Add</button>
+  </form>
+</div>
+
+<app-employee [employees]="(employees$ | async) || []"></app-employee>
+
+
+<!-- <div>
+  <h2>Current Employees</h2>
+  <ul>
+    <li *ngFor="let employee of employees$ | async">
+      {{ employee.name }}
+    </li>
+  </ul>
+</div> -->
